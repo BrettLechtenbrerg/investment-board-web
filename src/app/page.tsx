@@ -310,7 +310,7 @@ export default function Home() {
         </div>
 
         {/* Chat Area */}
-        <div className="rounded-2xl border border-white/10 bg-white/[0.02] overflow-hidden" style={{ height: 'calc(100vh - 300px)', minHeight: '400px' }}>
+        <div className="rounded-2xl border border-white/10 bg-white/[0.02] overflow-hidden" style={{ height: 'calc(100vh - 420px)', minHeight: '280px' }}>
           {/* Messages */}
           <div className="h-full flex flex-col">
             <div className="flex-1 overflow-y-auto p-4 space-y-4">
