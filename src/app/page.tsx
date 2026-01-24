@@ -231,6 +231,27 @@ export default function Home() {
       </header>
 
       <main className="max-w-6xl mx-auto px-4 py-6">
+        {/* Welcome Section */}
+        <div className="mb-8 text-center">
+          <h1 className="text-2xl font-bold text-white mb-4">Welcome To Your Personal<br />Investment Board of Advisors</h1>
+          <div className="flex justify-center mb-6">
+            <Image src="/icon.png" alt="Investment Board of Advisors" width={200} height={200} className="rounded-2xl" />
+          </div>
+          <div className="text-left max-w-2xl mx-auto">
+            <p className="text-sm font-semibold text-white mb-3">Follow these steps to get your investment board working for you.</p>
+            <ol className="list-decimal list-inside space-y-2 text-sm text-white/80">
+              <li>If you do not have an Anthropic / Claude AI account follow the link to set up your FREE account -&gt; <a href="https://www.anthropic.com/" target="_blank" rel="noopener noreferrer" className="text-emerald-400 hover:text-emerald-300 underline font-semibold">https://www.anthropic.com/</a></li>
+              <li>Click the black button in the top right corner that says Try Claude</li>
+              <li>Follow the simple instructions and you will be up and running in approximately 2 min.</li>
+              <li>After you set up your account, get anthropic API so you can talk to your board. Follow the link to get an API key and if you need further help then watch the 1 minute video below.</li>
+              <li>Once you have created and named your API key. Click the pulsing &ldquo;Set API Key&rdquo; in the top right hand corner and paste your key in the box and hit save.</li>
+              <li>Give the system 30 seconds to activate and you can begin asking your board questions.</li>
+              <li>You can ask individual board member questions or Call a Board Meeting and ask them all at once.</li>
+              <li>If you want to customize your board then simply click the Customize Your Board button and make changes by following the instructions. Please remember to hit the big green Save Board button or your changes will not take effect.</li>
+            </ol>
+          </div>
+        </div>
+
         {/* Advisor Selection */}
         <div className="mb-6">
           <div className="flex items-center justify-between mb-3">
