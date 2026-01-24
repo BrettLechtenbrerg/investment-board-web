@@ -140,6 +140,9 @@ export default function Home() {
     }
   };
 
+  const individualAdvisors = ADVISORS.filter(a => a.id !== 'board_meeting');
+  const boardMeeting = ADVISORS.find(a => a.id === 'board_meeting')!;
+
   const colorMap: Record<string, string> = {
     emerald: 'border-emerald-500/30 bg-emerald-500/10 hover:bg-emerald-500/20',
     blue: 'border-blue-500/30 bg-blue-500/10 hover:bg-blue-500/20',
@@ -150,6 +153,7 @@ export default function Home() {
     violet: 'border-violet-500/30 bg-violet-500/10 hover:bg-violet-500/20',
     red: 'border-red-500/30 bg-red-500/10 hover:bg-red-500/20',
     pink: 'border-pink-500/30 bg-pink-500/10 hover:bg-pink-500/20',
+    gold: 'border-yellow-500/30 bg-yellow-500/10 hover:bg-yellow-500/20',
   };
 
   const selectedColorMap: Record<string, string> = {
@@ -162,6 +166,7 @@ export default function Home() {
     violet: 'border-violet-400 bg-violet-500/30 ring-2 ring-violet-500/50',
     red: 'border-red-400 bg-red-500/30 ring-2 ring-red-500/50',
     pink: 'border-pink-400 bg-pink-500/30 ring-2 ring-pink-500/50',
+    gold: 'border-yellow-400 bg-yellow-500/30 ring-2 ring-yellow-500/50',
   };
 
   return (
@@ -209,7 +214,7 @@ export default function Home() {
         <div className="mb-6">
           <h2 className="text-sm font-medium text-white/50 mb-3">Choose Your Advisor</h2>
           <div className="grid grid-cols-3 sm:grid-cols-5 lg:grid-cols-9 gap-2">
-            {ADVISORS.map((advisor) => (
+            {individualAdvisors.map((advisor) => (
               <button
                 key={advisor.id}
                 onClick={() => {
@@ -230,6 +235,23 @@ export default function Home() {
               </button>
             ))}
           </div>
+          {/* Board Meeting Button */}
+          <button
+            onClick={() => {
+              setSelectedAdvisor(boardMeeting);
+              setMessages([]);
+              setError('');
+            }}
+            className={`mt-3 w-full flex items-center justify-center gap-3 p-3 rounded-xl border transition-all active:scale-95 ${
+              selectedAdvisor?.id === 'board_meeting'
+                ? 'border-yellow-400 bg-yellow-500/20 ring-2 ring-yellow-500/50'
+                : 'border-yellow-500/30 bg-yellow-500/5 hover:bg-yellow-500/15'
+            }`}
+          >
+            <span className="text-xl">📋</span>
+            <span className="text-sm font-semibold text-yellow-300">Call a Board Meeting</span>
+            <span className="text-xs text-white/40 hidden sm:inline">&mdash; All 9 advisors weigh in together</span>
+          </button>
           {selectedAdvisor && (
             <div className="mt-3 flex items-center justify-between">
               <p className="text-sm text-white/60">
