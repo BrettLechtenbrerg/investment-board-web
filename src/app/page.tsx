@@ -287,6 +287,10 @@ export default function Home() {
               </button>
             ))}
           </div>
+          {/* Instruction Button */}
+          <div className="mt-3 w-full flex items-center justify-center gap-3 p-3 rounded-xl border border-white/20 bg-white/[0.03]">
+            <span className="text-sm text-white/70 text-center">Talk to an individual advisor by clicking their name above or call a board meeting by clicking the button below.</span>
+          </div>
           {/* Board Meeting Button */}
           <button
             onClick={() => {
@@ -294,7 +298,7 @@ export default function Home() {
               setMessages([]);
               setError('');
             }}
-            className={`mt-3 w-full flex items-center justify-center gap-3 p-3 rounded-xl border transition-all active:scale-95 ${
+            className={`mt-2 w-full flex items-center justify-center gap-3 p-3 rounded-xl border transition-all active:scale-95 ${
               selectedAdvisor?.id === 'board_meeting'
                 ? 'border-yellow-400 bg-yellow-500/20 ring-2 ring-yellow-500/50'
                 : 'border-yellow-500/30 bg-yellow-500/5 hover:bg-yellow-500/15'
@@ -336,30 +340,16 @@ export default function Home() {
           {/* Messages */}
           <div className="h-full flex flex-col">
             <div className="flex-1 overflow-y-auto p-4 space-y-4">
-              {messages.length === 0 && (
+              {messages.length === 0 && selectedAdvisor && (
                 <div className="h-full flex items-center justify-center text-center">
                   <div>
-                    {selectedAdvisor ? (
-                      <>
-                        <span className="text-5xl mb-4 block">{selectedAdvisor.emoji}</span>
-                        <h3 className="text-lg font-medium text-white/70 mb-2">
-                          Chat with {selectedAdvisor.name}
-                        </h3>
-                        <p className="text-sm text-white/40 max-w-md">
-                          Ask about investment strategies, market analysis, portfolio advice, or any financial topic.
-                        </p>
-                      </>
-                    ) : (
-                      <>
-                        <span className="text-5xl mb-4 block">💰</span>
-                        <h3 className="text-lg font-medium text-white/70 mb-2">
-                          Select an Advisor Above
-                        </h3>
-                        <p className="text-sm text-white/40 max-w-md">
-                          Choose from {activeAdvisors.length} legendary investors, each with their own unique philosophy and style.
-                        </p>
-                      </>
-                    )}
+                    <span className="text-5xl mb-4 block">{selectedAdvisor.emoji}</span>
+                    <h3 className="text-lg font-medium text-white/70 mb-2">
+                      Chat with {selectedAdvisor.name}
+                    </h3>
+                    <p className="text-sm text-white/40 max-w-md">
+                      Ask about investment strategies, market analysis, portfolio advice, or any financial topic.
+                    </p>
                   </div>
                 </div>
               )}
