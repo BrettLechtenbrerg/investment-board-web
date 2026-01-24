@@ -32,8 +32,6 @@ export default function Home() {
     const savedKey = localStorage.getItem('anthropic-api-key');
     if (savedKey) {
       setApiKey(savedKey);
-    } else {
-      setShowHelp(true);
     }
     const savedBoard = localStorage.getItem('investment-board-advisors');
     if (savedBoard) {
