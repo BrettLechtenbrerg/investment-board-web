@@ -188,6 +188,24 @@ export default function Home() {
     rose: 'border-rose-400 bg-rose-500/30 ring-2 ring-rose-500/50',
   };
 
+  const chatBoxColorMap: Record<string, string> = {
+    emerald: 'border-emerald-500/50',
+    blue: 'border-blue-500/50',
+    cyan: 'border-cyan-500/50',
+    indigo: 'border-indigo-500/50',
+    amber: 'border-amber-500/50',
+    purple: 'border-purple-500/50',
+    violet: 'border-violet-500/50',
+    red: 'border-red-500/50',
+    pink: 'border-pink-500/50',
+    gold: 'border-yellow-500/50',
+    teal: 'border-teal-500/50',
+    slate: 'border-slate-400/50',
+    sky: 'border-sky-500/50',
+    orange: 'border-orange-500/50',
+    rose: 'border-rose-500/50',
+  };
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-950 via-gray-900 to-gray-950 text-white">
       {/* Header */}
@@ -334,7 +352,7 @@ export default function Home() {
         </div>
 
         {/* Chat Area */}
-        <div className="rounded-2xl border border-white/10 bg-white/[0.02] overflow-hidden" style={{ height: 'calc(100vh - 700px)', minHeight: '150px' }}>
+        <div className={`rounded-2xl border ${selectedAdvisor ? chatBoxColorMap[selectedAdvisor.color] || 'border-white/10' : 'border-white/10'} bg-white/[0.02] overflow-hidden transition-colors`} style={{ height: 'calc(100vh - 700px)', minHeight: '150px' }}>
           {/* Messages */}
           <div className="h-full flex flex-col">
             <div className="flex-1 overflow-y-auto p-4 space-y-4">
