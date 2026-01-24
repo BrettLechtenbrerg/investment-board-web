@@ -282,6 +282,14 @@ export default function Home() {
             <span className="text-sm font-semibold text-yellow-300">Call a Board Meeting</span>
             <span className="text-xs text-white/40 hidden sm:inline">&mdash; All {activeAdvisors.length} advisors weigh in together</span>
           </button>
+          {/* Customize Your Board Button */}
+          <button
+            onClick={() => setShowCustomize(true)}
+            className="mt-2 w-full flex items-center justify-center gap-3 p-3 rounded-xl border border-emerald-500/30 bg-emerald-500/5 hover:bg-emerald-500/15 transition-all active:scale-95"
+          >
+            <Settings2 className="h-5 w-5 text-emerald-400" />
+            <span className="text-sm font-semibold text-emerald-300">Customize Your Board</span>
+          </button>
           {selectedAdvisor && (
             <div className="mt-3 flex items-center justify-between">
               <p className="text-sm text-white/60">
