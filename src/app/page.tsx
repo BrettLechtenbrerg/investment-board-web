@@ -45,9 +45,11 @@ export default function Home() {
     }
   }, []);
 
-  // Auto-scroll to bottom
+  // Auto-scroll to bottom (only when messages exist)
   useEffect(() => {
-    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+    if (messages.length > 0) {
+      messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+    }
   }, [messages]);
 
   const saveApiKey = () => {
