@@ -261,7 +261,7 @@ export default function Home() {
               <li>When you are on the anthropic page simply click the black button in the top right corner that says Try Claude.</li>
               <li>Follow the simple instructions and you will have a FREE Claude account be up and running in approximately 2 min.</li>
               <li>After you set up your Claude/Anthropic account, you will create an anthropic API key so you can talk to your board. Follow the link to create an API key. This will take about 3 minutes. If you need further help then watch the 1 minute video by clicking <a href="https://www.youtube.com/watch?v=y3Jx8sIwYQs" target="_blank" rel="noopener noreferrer" className="text-emerald-400 hover:text-emerald-300 underline font-semibold">here</a>.</li>
-              <li>Once you have created and named your API key. Click the pulsing &ldquo;Set API Key&rdquo; in the top right hand corner and paste your key in the box and hit save.</li>
+              <li>Once you have created and named your API key. Click the pulsing &ldquo;Set API Key&rdquo; in the top right hand corner of this screen - paste your key in the box - and hit save.</li>
               <li>Give the system 30 seconds to activate and you can begin asking your board questions.</li>
               <li>You can ask individual board member questions or Call a Board Meeting and ask them all at once.</li>
               <li>If you want to customize your board then simply click the Customize Your Board button and make changes by following the instructions. Please remember to hit the big green Save Board button or your changes will not take effect.</li>
