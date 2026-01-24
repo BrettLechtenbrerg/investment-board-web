@@ -16,14 +16,15 @@ const steps = [
     color: 'purple',
     content: [
       {
-        subtitle: 'Create an Anthropic Account',
+        subtitle: 'Get Your Key from Claude',
         instructions: [
-          'Go to console.anthropic.com',
+          'Click the link below to open the Claude Dashboard',
           'Sign up for a free account (or sign in)',
-          'Navigate to Settings → API Keys',
+          'Navigate to API Keys section',
           'Click "+ Create Key" to generate a new key',
           'Copy the key immediately (it only shows once!)',
         ],
+        link: { url: 'https://platform.claude.com/dashboard', label: 'Open Claude Dashboard →' },
       },
       {
         subtitle: 'Add Credits',
@@ -121,7 +122,7 @@ const steps = [
         subtitle: null,
         isVideo: true,
         instructions: [],
-        videoPlaceholder: true,
+        videoId: 'y3Jx8sIwYQs',
       },
     ],
   },
@@ -204,11 +205,17 @@ export function HelpModal({ isOpen, onClose }: HelpModalProps) {
                               {section.instructions[0]}
                             </p>
                           </div>
-                        ) : (section as { isVideo?: boolean; videoPlaceholder?: boolean }).videoPlaceholder ? (
-                          <div className="ml-14 rounded-lg bg-white/5 border border-white/10 p-6 text-center">
-                            <PlayCircle className="h-12 w-12 text-white/30 mx-auto mb-3" />
-                            <p className="text-sm text-white/50">Video tutorial coming soon!</p>
-                            <p className="text-xs text-white/30 mt-1">Check back for a step-by-step walkthrough</p>
+                        ) : (section as { isVideo?: boolean; videoId?: string }).videoId ? (
+                          <div className="ml-14 rounded-xl overflow-hidden border border-white/10">
+                            <div className="relative w-full" style={{ paddingBottom: '56.25%' }}>
+                              <iframe
+                                className="absolute inset-0 w-full h-full"
+                                src={`https://www.youtube.com/embed/${(section as { videoId: string }).videoId}`}
+                                title="How to get a Claude API Key"
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                allowFullScreen
+                              />
+                            </div>
                           </div>
                         ) : (
                           <>
@@ -225,6 +232,17 @@ export function HelpModal({ isOpen, onClose }: HelpModalProps) {
                                 </li>
                               ))}
                             </ul>
+                            {(section as { link?: { url: string; label: string } }).link && (
+                              <a
+                                href={(section as { link: { url: string; label: string } }).link.url}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="inline-flex items-center gap-1.5 ml-14 mt-2 text-sm text-emerald-400 hover:text-emerald-300 transition-colors font-medium"
+                              >
+                                <ExternalLink className="h-4 w-4" />
+                                {(section as { link: { url: string; label: string } }).link.label}
+                              </a>
+                            )}
                           </>
                         )}
                       </div>
@@ -240,13 +258,22 @@ export function HelpModal({ isOpen, onClose }: HelpModalProps) {
             <h3 className="text-sm font-medium text-white/50 mb-3">Quick Links</h3>
             <div className="flex flex-wrap gap-2">
               <a
-                href="https://console.anthropic.com/settings/keys"
+                href="https://platform.claude.com/dashboard"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-purple-500/20 text-purple-400 text-sm font-medium border border-purple-500/30 hover:bg-purple-500/30 transition-colors"
               >
                 <ExternalLink className="h-4 w-4" />
                 Get API Key
+              </a>
+              <a
+                href="https://www.youtube.com/watch?v=y3Jx8sIwYQs"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-pink-500/20 text-pink-400 text-sm font-medium border border-pink-500/30 hover:bg-pink-500/30 transition-colors"
+              >
+                <PlayCircle className="h-4 w-4" />
+                Video Tutorial
               </a>
               <a
                 href="https://docs.anthropic.com/en/docs/quickstart"

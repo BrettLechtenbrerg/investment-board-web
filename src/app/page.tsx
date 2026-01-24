@@ -396,33 +396,64 @@ export default function Home() {
             >
               <X className="h-5 w-5" />
             </button>
-            <h2 className="text-lg font-semibold text-white mb-2">Claude API Key</h2>
-            <p className="text-sm text-white/50 mb-4">
-              Your key is stored only in your browser. Never sent to our servers.
-            </p>
-            <input
-              type="password"
-              value={apiKeyInput}
-              onChange={(e) => setApiKeyInput(e.target.value)}
-              placeholder="sk-ant-api03-..."
-              className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-sm text-white placeholder-white/30 focus:outline-none focus:ring-2 focus:ring-emerald-500/50 mb-3"
-            />
-            <div className="flex gap-2">
-              <button
-                onClick={saveApiKey}
-                className="flex-1 py-2.5 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-500 text-white font-medium hover:from-emerald-500 hover:to-teal-400 transition-all"
-              >
-                Save Key
-              </button>
+            <h2 className="text-lg font-semibold text-white mb-4">Set Up Your API Key</h2>
+
+            {/* Step 1 */}
+            <div className="mb-4 p-3 rounded-xl border border-white/10 bg-white/[0.02]">
+              <div className="flex items-center gap-2 mb-2">
+                <span className="flex items-center justify-center w-6 h-6 rounded-full bg-emerald-500/20 text-emerald-400 text-xs font-bold">1</span>
+                <span className="text-sm font-medium text-white">Get your Claude API key</span>
+              </div>
+              <p className="text-xs text-white/50 mb-2 ml-8">Create an account and generate an API key on the Anthropic platform.</p>
               <a
-                href="https://console.anthropic.com/settings/keys"
+                href="https://platform.claude.com/dashboard"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="px-4 py-2.5 rounded-xl border border-white/10 text-sm text-white/70 hover:bg-white/10 transition-colors flex items-center gap-1.5"
+                className="ml-8 inline-flex items-center gap-1.5 text-xs text-emerald-400 hover:text-emerald-300 transition-colors"
               >
-                Get Key
+                Open Claude Dashboard →
               </a>
             </div>
+
+            {/* Step 2 */}
+            <div className="mb-4 p-3 rounded-xl border border-white/10 bg-white/[0.02]">
+              <div className="flex items-center gap-2 mb-2">
+                <span className="flex items-center justify-center w-6 h-6 rounded-full bg-pink-500/20 text-pink-400 text-xs font-bold">2</span>
+                <span className="text-sm font-medium text-white">Watch the video tutorial</span>
+              </div>
+              <p className="text-xs text-white/50 mb-2 ml-8">Not sure how? Watch this quick guide on getting your API key.</p>
+              <a
+                href="https://www.youtube.com/watch?v=y3Jx8sIwYQs"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="ml-8 inline-flex items-center gap-1.5 text-xs text-pink-400 hover:text-pink-300 transition-colors"
+              >
+                Watch Tutorial on YouTube →
+              </a>
+            </div>
+
+            {/* Step 3 */}
+            <div className="mb-4 p-3 rounded-xl border border-white/10 bg-white/[0.02]">
+              <div className="flex items-center gap-2 mb-2">
+                <span className="flex items-center justify-center w-6 h-6 rounded-full bg-blue-500/20 text-blue-400 text-xs font-bold">3</span>
+                <span className="text-sm font-medium text-white">Paste your key below</span>
+              </div>
+              <p className="text-xs text-white/50 mb-2 ml-8">Your key is stored only in your browser. Never sent to our servers.</p>
+              <input
+                type="password"
+                value={apiKeyInput}
+                onChange={(e) => setApiKeyInput(e.target.value)}
+                placeholder="sk-ant-api03-..."
+                className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-sm text-white placeholder-white/30 focus:outline-none focus:ring-2 focus:ring-emerald-500/50"
+              />
+            </div>
+
+            <button
+              onClick={saveApiKey}
+              className="w-full py-2.5 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-500 text-white font-medium hover:from-emerald-500 hover:to-teal-400 transition-all"
+            >
+              Save Key
+            </button>
           </div>
         </div>
       )}
