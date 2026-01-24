@@ -29,6 +29,7 @@ export default function Home() {
 
   // Load API key and board config from localStorage on mount
   useEffect(() => {
+    window.scrollTo(0, 0);
     const savedKey = localStorage.getItem('anthropic-api-key');
     if (savedKey) {
       setApiKey(savedKey);
