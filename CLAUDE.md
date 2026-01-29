@@ -139,6 +139,9 @@ advisory-boards/
 └── business-board-of-advisors/        # Python CLI (legacy)
 ```
 
+## Recent Updates (January 29, 2026)
+- **Expanded conversation window** - Changed from `calc(100vh - 700px)` with `minHeight: 150px` to `calc(100vh - 400px)` with `minHeight: 500px` for much better visibility
+
 ## Important Notes
 - **ALWAYS** `cd` to the correct web app directory before running commands
 - Web apps use client-side API keys (no .env needed for deployment)
