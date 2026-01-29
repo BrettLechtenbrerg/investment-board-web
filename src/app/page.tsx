@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useRef, useEffect } from 'react';
-import { Send, HelpCircle, Key, X, Loader2, Trash2, Settings2 } from 'lucide-react';
+import { Send, HelpCircle, Key, X, Loader2, Trash2, Settings2, ChevronDown, BookOpen } from 'lucide-react';
 import { ALL_ADVISORS, DEFAULT_ADVISOR_IDS, generateBoardMeetingAdvisor, Advisor } from '@/lib/advisors';
 import { HelpModal } from '@/components/HelpModal';
 import { CustomizeModal } from '@/components/CustomizeModal';
@@ -24,6 +24,7 @@ export default function Home() {
   const [activeAdvisorIds, setActiveAdvisorIds] = useState<string[]>(DEFAULT_ADVISOR_IDS);
   const [apiKeyInput, setApiKeyInput] = useState('');
   const [error, setError] = useState('');
+  const [showInstructions, setShowInstructions] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLTextAreaElement>(null);
 
@@ -277,24 +278,45 @@ export default function Home() {
 
       <main className="max-w-6xl mx-auto px-4 py-6">
         {/* Welcome Section */}
-        <div className="mb-8 text-center">
+        <div className="mb-6 text-center">
           <h1 className="text-2xl font-bold text-white mb-4">Welcome To Your Personal<br />Investment Board of Advisors</h1>
-          <div className="flex justify-center mb-6">
-            <Image src="/icon.png" alt="Investment Board of Advisors" width={200} height={200} className="rounded-2xl" />
+          <div className="flex justify-center mb-4">
+            <Image src="/icon.png" alt="Investment Board of Advisors" width={150} height={150} className="rounded-2xl" />
           </div>
-          <div className="text-left max-w-2xl mx-auto">
-            <p className="text-sm font-semibold text-white mb-1">Follow these steps to get your investment board working for you.</p>
-            <p className="text-sm text-white/70 mb-3">If you already have an Anthropic/Claude account you can skip to step 4.</p>
-            <ol className="list-decimal list-inside space-y-2 text-sm text-white/80">
-              <li>If you do not have an Anthropic / Claude AI account follow the link to set up your FREE account -&gt; <a href="https://www.anthropic.com/" target="_blank" rel="noopener noreferrer" className="text-emerald-400 hover:text-emerald-300 underline font-semibold">https://www.anthropic.com/</a></li>
-              <li>When you are on the anthropic page simply click the black button in the top right corner that says Try Claude.</li>
-              <li>Follow the simple instructions and you will have a FREE Claude account be up and running in approximately 2 min.</li>
-              <li>After you set up your Claude/Anthropic account, you will create an anthropic API key so you can talk to your board. Follow the link -&gt; <a href="https://platform.claude.com/dashboard" target="_blank" rel="noopener noreferrer" className="text-emerald-400 hover:text-emerald-300 underline font-semibold">https://platform.claude.com/dashboard</a> to create an API key. This will take about 3 minutes. If you need further help then watch the 1 minute video by clicking <a href="https://www.youtube.com/watch?v=y3Jx8sIwYQs" target="_blank" rel="noopener noreferrer" className="text-emerald-400 hover:text-emerald-300 underline font-semibold">here</a>.</li>
-              <li>Once you have created and named your API key. Click the pulsing &ldquo;Set API Key&rdquo; in the top right hand corner of this screen - paste your key in the box - and hit save.</li>
-              <li>Give the system 30 seconds to activate and you can begin asking your board questions.</li>
-              <li>You can ask individual board member questions or Call a Board Meeting and ask them all at once.</li>
-              <li>If you want to customize your board then simply click the Customize Your Board button and make changes by following the instructions. Please remember to hit the big green Save Board button or your changes will not take effect.</li>
-            </ol>
+
+          {/* Collapsible Setup Instructions */}
+          <div className="max-w-2xl mx-auto">
+            <button
+              onClick={() => setShowInstructions(!showInstructions)}
+              className="w-full flex items-center justify-between gap-3 p-4 rounded-xl border border-emerald-500/30 bg-emerald-500/10 hover:bg-emerald-500/15 transition-all group"
+            >
+              <div className="flex items-center gap-3">
+                <div className="flex items-center justify-center w-10 h-10 rounded-lg bg-emerald-500/20 border border-emerald-500/30">
+                  <BookOpen className="h-5 w-5 text-emerald-400" />
+                </div>
+                <div className="text-left">
+                  <p className="text-sm font-semibold text-white">Setup Instructions</p>
+                  <p className="text-xs text-white/50">New here? Click to see how to get started</p>
+                </div>
+              </div>
+              <ChevronDown className={`h-5 w-5 text-emerald-400 transition-transform duration-200 ${showInstructions ? 'rotate-180' : ''}`} />
+            </button>
+
+            {showInstructions && (
+              <div className="mt-2 p-4 rounded-xl border border-white/10 bg-white/[0.02] text-left animate-in slide-in-from-top-2 duration-200">
+                <p className="text-sm text-white/70 mb-3">If you already have an Anthropic/Claude account you can skip to step 4.</p>
+                <ol className="list-decimal list-inside space-y-2 text-sm text-white/80">
+                  <li>If you do not have an Anthropic / Claude AI account follow the link to set up your FREE account → <a href="https://www.anthropic.com/" target="_blank" rel="noopener noreferrer" className="text-emerald-400 hover:text-emerald-300 underline font-semibold">anthropic.com</a></li>
+                  <li>When you are on the anthropic page simply click the black button in the top right corner that says Try Claude.</li>
+                  <li>Follow the simple instructions and you will have a FREE Claude account up and running in approximately 2 min.</li>
+                  <li>After you set up your Claude/Anthropic account, you will create an anthropic API key so you can talk to your board. Follow the link → <a href="https://platform.claude.com/dashboard" target="_blank" rel="noopener noreferrer" className="text-emerald-400 hover:text-emerald-300 underline font-semibold">platform.claude.com/dashboard</a> to create an API key. This will take about 3 minutes. If you need further help then watch the 1 minute video by clicking <a href="https://www.youtube.com/watch?v=y3Jx8sIwYQs" target="_blank" rel="noopener noreferrer" className="text-emerald-400 hover:text-emerald-300 underline font-semibold">here</a>.</li>
+                  <li>Once you have created and named your API key. Click the pulsing &ldquo;Set API Key&rdquo; in the top right hand corner of this screen - paste your key in the box - and hit save.</li>
+                  <li>Give the system 30 seconds to activate and you can begin asking your board questions.</li>
+                  <li>You can ask individual board member questions or Call a Board Meeting and ask them all at once.</li>
+                  <li>If you want to customize your board then simply click the Customize Your Board button and make changes by following the instructions. Please remember to hit the big green Save Board button or your changes will not take effect.</li>
+                </ol>
+              </div>
+            )}
           </div>
         </div>
 
