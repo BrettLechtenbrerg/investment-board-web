@@ -33,23 +33,29 @@ src/
 │   └── api/chat/route.ts     # Anthropic API proxy (streaming SSE)
 ├── components/
 │   ├── CustomizeModal.tsx    # Board customization UI (toggle advisors on/off)
-│   └── HelpModal.tsx         # Help system with accordion steps & video
+│   └── HelpModal.tsx         # Help system with accordion steps, video & troubleshooting
 └── lib/
     └── advisors.ts           # Advisor data, colors, prompts, board meeting generator
 ```
 
 ### Web App Features
-1. **Welcome Section** - App icon, title, and 8-step setup instructions on landing page
-2. **Individual Advisors** - Click any advisor to chat one-on-one
-3. **Board Meeting** - All active advisors respond in character with synthesis
-4. **Customize Board** - Toggle advisors on/off from 15 (investment) or 12 (business) options
-5. **Dynamic Chat Box** - Border color matches selected advisor's theme color
-6. **API Key Modal** - 3-step setup (Anthropic account link, YouTube tutorial, key input)
-7. **Help Modal** - Accordion-style guide with Quick Links and embedded video
-8. **Streaming Responses** - Server-Sent Events for real-time AI responses
-9. **localStorage Persistence** - API key and board customization saved locally
-10. **All external links** - Open in new window (`target="_blank"`)
-11. **Scroll to top** - Page loads at top, auto-scroll only when messages exist
+1. **Welcome Section** - App icon, title, and collapsible setup instructions
+2. **Collapsible Instructions** - Accordion-style 8-step guide (hidden by default)
+3. **Individual Advisors** - Click any advisor to chat one-on-one
+4. **Board Meeting** - All active advisors respond in character with synthesis
+5. **Customize Board** - Toggle advisors on/off from 15 (investment) or 12 (business) options
+6. **Dynamic Chat Box** - Border color matches selected advisor's theme color
+7. **API Key Modal** - 3-step setup with error handling and verification
+8. **Help Modal** - Accordion-style guide with:
+   - Welcome intro explaining what the app is
+   - 5-step setup guide with expandable sections
+   - Troubleshooting tips for API key issues
+   - Quick Links and embedded video tutorial
+9. **Streaming Responses** - Server-Sent Events for real-time AI responses
+10. **localStorage Persistence** - API key and board customization with error handling
+11. **Expanded Chat Window** - `calc(100vh - 400px)` with `minHeight: 500px`
+12. **All external links** - Open in new window (`target="_blank"`)
+13. **Scroll to top** - Page loads at top, auto-scroll only when messages exist
 
 ### Investment Board Advisors (15 total, 9 default)
 **Default:** Warren Buffett, Peter Lynch, Ray Dalio, John Bogle, Benjamin Graham, George Soros, Howard Marks, Carl Icahn, Cathie Wood
@@ -75,12 +81,13 @@ npm run dev          # localhost:3000
 # Build
 npm run build
 
-# Deploy to Vercel
-vercel --prod --yes
+# Deploy (Vercel auto-deploys on git push)
+git add -A && git commit -m "message" && git push
 ```
 
 ### API Key Flow
 - Users provide their own Anthropic API key (stored in browser localStorage)
+- Key is saved with try-catch error handling and verification
 - Key is sent to `/api/chat` route which proxies to Anthropic API
 - No server-side API key required - fully client-driven
 
@@ -124,6 +131,7 @@ python main.py -b -q "Is the market overvalued?" --synthesize
 ```
 advisory-boards/
 ├── CLAUDE.md                          # This file
+├── RESTART_PROMPT.md                  # Quick restart guide
 ├── pictures/                          # App icon source images
 ├── investment-board-web/              # Next.js web app (PRODUCTION)
 │   ├── src/                           # Source code
@@ -140,7 +148,20 @@ advisory-boards/
 ```
 
 ## Recent Updates (January 29, 2026)
-- **Expanded conversation window** - Changed from `calc(100vh - 700px)` with `minHeight: 150px` to `calc(100vh - 400px)` with `minHeight: 500px` for much better visibility
+
+### Session 2 - UI/UX Improvements
+1. **Collapsible Instructions** - Converted 8-step setup instructions to accordion (hidden by default, click to expand)
+2. **Welcome Intro in Help Modal** - Added explanation of what the app is with example questions
+3. **Troubleshooting Tips** - Added "Key Not Saving?" section with common issues (private browsing, blocked storage, etc.)
+4. **API Key Persistence Fix** - Added try-catch, verification, and user-friendly error messages for localStorage operations
+5. **Expanded Conversation Window** - Changed from cramped 150px min to spacious 500px min
+
+### Session 1 - Initial Improvements
+- Added Welcome Section with 8-step instructions
+- Added Customize Your Board button
+- Added dynamic chat box border colors
+- Fixed scroll-to-top on page load
+- Created CLAUDE.md and RESTART_PROMPT.md
 
 ## Important Notes
 - **ALWAYS** `cd` to the correct web app directory before running commands
@@ -148,3 +169,4 @@ advisory-boards/
 - Both web apps are independently deployed Vercel projects
 - The `pictures/` folder contains source app icon images
 - Board Meeting advisor is generated dynamically based on active advisors (not static)
+- Vercel auto-deploys on push to main branch

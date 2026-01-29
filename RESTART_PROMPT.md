@@ -1,7 +1,7 @@
 # Advisory Boards - Ultimate Restart Prompt
 
 **Last Updated:** January 29, 2026
-**Session Summary:** Expanded conversation windows for better user visibility.
+**Session Summary:** Major UI/UX improvements including collapsible instructions, help modal enhancements, API key persistence fixes, and expanded chat windows.
 
 ---
 
@@ -64,21 +64,30 @@ You are continuing work on the **Advisory Boards** project — two AI-powered we
 
 ### Page Layout (top to bottom):
 1. **Header** — App title, Help button (accordion modal), API Key button (pulsing when not set)
-2. **Welcome Section** — Title, app icon image, 8-step setup instructions with clickable links
-3. **Advisor Grid** — Clickable emoji buttons for each active advisor
-4. **Instruction Button** — "Talk to an individual advisor..."
-5. **Board Meeting Button** — Yellow themed, calls all active advisors
-6. **Customize Your Board Button** — Themed button to toggle advisors
-7. **Selected Advisor Info** — Shows name/title when advisor selected
-8. **Chat Area** — EXPANDED: `calc(100vh - 400px)` with `minHeight: 500px`
+2. **Welcome Section** — Title, app icon image (150px)
+3. **Collapsible Instructions** — Accordion-style 8-step setup guide (collapsed by default)
+4. **Advisor Grid** — Clickable emoji buttons for each active advisor
+5. **Instruction Button** — "Talk to an individual advisor..."
+6. **Board Meeting Button** — Yellow themed, calls all active advisors
+7. **Customize Your Board Button** — Themed button to toggle advisors
+8. **Selected Advisor Info** — Shows name/title when advisor selected
+9. **Chat Area** — EXPANDED: `calc(100vh - 400px)` with `minHeight: 500px`
+
+### Help Modal Features:
+- **Welcome Introduction** — Explains what the app is with example questions
+- **5 Collapsible Steps** — Get API Key, Enter Key, Choose Advisor, Start Chatting, Watch Tutorial
+- **Troubleshooting Section** — "Key Not Saving?" with common issues
+- **Quick Links** — Get API Key, Video Tutorial, Anthropic Docs
+- **Embedded YouTube Video** — Tutorial walkthrough
 
 ### Key Behaviors:
 - Page scrolls to top on load
 - Auto-scroll to bottom ONLY when messages exist
 - All external links open in new window
-- API key stored in localStorage (`anthropic-api-key`)
+- API key stored in localStorage (`anthropic-api-key`) with error handling
 - Board customization stored in localStorage
 - Board Meeting advisor generated dynamically
+- Instructions collapsed by default (click to expand)
 
 ### Advisors Available:
 
@@ -103,7 +112,7 @@ src/
 │   └── api/chat/route.ts     # Anthropic API streaming proxy
 ├── components/
 │   ├── CustomizeModal.tsx    # Toggle advisors on/off
-│   └── HelpModal.tsx         # Help accordion + video
+│   └── HelpModal.tsx         # Help accordion + video + troubleshooting
 └── lib/
     └── advisors.ts           # ALL_ADVISORS, DEFAULT_ADVISOR_IDS, generateBoardMeetingAdvisor()
 ```
@@ -134,13 +143,23 @@ npm run build && git add -A && git commit -m "message" && git push
 2. **Build lock files:** If build fails with lock error, run `rm -f .next/lock`
 3. **Build cache errors:** If ENOTEMPTY errors, run `rm -rf .next` then rebuild
 4. **Shell resets:** The shell often resets to advisory-board2 after commands
+5. **Corrupted node_modules:** If package config errors, run `rm -rf node_modules .next && npm install`
 
 ---
 
 ## Session History
 
-### January 29, 2026
-- **FIXED:** Expanded conversation windows from cramped `calc(100vh - 700px)` with `minHeight: 150px` to spacious `calc(100vh - 400px)` with `minHeight: 500px`
+### January 29, 2026 - Session 2 (Latest)
+- **Collapsible Instructions:** Converted 8-step setup instructions to accordion with BookOpen icon, collapsed by default
+- **Welcome Intro in Help Modal:** Added themed intro section explaining what the app is with example questions
+- **Troubleshooting Tips:** Added "Key Not Saving?" section with tips for private browsing, blocked storage, clearing data, different devices
+- **API Key Persistence Fix:** Added try-catch error handling, verification that key was saved, user-friendly error messages
+- **Both apps committed and pushed:**
+  - investment-board-web: `d572e7e` - Convert instructions to collapsible accordion
+  - business-board-web: `b4a2b9b` - Convert instructions to collapsible accordion
+
+### January 29, 2026 - Session 1
+- **Expanded conversation window:** Changed from `calc(100vh - 700px)` with `minHeight: 150px` to `calc(100vh - 400px)` with `minHeight: 500px`
 - Committed and pushed to both repos
 - Both Vercel deployments auto-updated
 
@@ -161,6 +180,7 @@ npm run build && git add -A && git commit -m "message" && git push
 4. **User (Brett)** typically requests UI tweaks, text changes, and new features
 5. **After changes:** Build, commit, push (Vercel auto-deploys)
 6. **Always use explicit `cd` paths** to avoid directory confusion
+7. **Testers see changes immediately** after refreshing the browser
 
 ---
 
@@ -178,6 +198,9 @@ cd /Users/brettlechtenberg/Documents/agent-girl/advisory-boards/investment-board
 
 # Run dev server (business)
 cd /Users/brettlechtenberg/Documents/agent-girl/advisory-boards/business-board-web && npm run dev
+
+# Fix corrupted packages
+rm -rf node_modules .next && npm install
 ```
 
 ---
@@ -195,4 +218,58 @@ cd /Users/brettlechtenberg/Documents/agent-girl/advisory-boards/business-board-w
 
 ---
 
-**Remember:** The web apps are the production focus. Both use client-side API keys (user provides their own Anthropic key). The conversation window is now properly sized at 500px minimum height!
+## Key Code Patterns
+
+### Collapsible Instructions (page.tsx)
+```tsx
+const [showInstructions, setShowInstructions] = useState(false);
+
+<button onClick={() => setShowInstructions(!showInstructions)} className="...">
+  <BookOpen className="h-5 w-5" />
+  <span>Setup Instructions</span>
+  <ChevronDown className={`transition-transform ${showInstructions ? 'rotate-180' : ''}`} />
+</button>
+
+{showInstructions && (
+  <div className="...">
+    {/* 8-step instructions */}
+  </div>
+)}
+```
+
+### Safe localStorage (page.tsx)
+```tsx
+const saveApiKey = () => {
+  if (!apiKeyInput.trim()) return;
+  try {
+    localStorage.setItem('anthropic-api-key', apiKeyInput.trim());
+    const verified = localStorage.getItem('anthropic-api-key');
+    if (verified === apiKeyInput.trim()) {
+      setApiKey(apiKeyInput.trim());
+      setShowApiKeyModal(false);
+    } else {
+      throw new Error('Verification failed');
+    }
+  } catch (e) {
+    setError('Failed to save API key. Your browser may be blocking storage.');
+  }
+};
+```
+
+### Troubleshooting Section (HelpModal.tsx)
+```tsx
+{
+  subtitle: 'Troubleshooting: Key Not Saving?',
+  isTroubleshooting: true,
+  instructions: [
+    'Private/Incognito Mode: Your key will be deleted when you close...',
+    'Browser Storage Blocked: Some browsers or extensions block localStorage...',
+    'Clearing Browser Data: If you clear cookies/cache...',
+    'Different Device/Browser: Your key is stored per-device...',
+  ],
+}
+```
+
+---
+
+**Remember:** The web apps are the production focus. Both use client-side API keys (user provides their own Anthropic key). The conversation window is now spacious at 500px minimum height, and instructions are hidden by default to reduce visual clutter!
