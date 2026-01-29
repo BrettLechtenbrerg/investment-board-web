@@ -27,21 +27,33 @@ export default function Home() {
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLTextAreaElement>(null);
 
-  // Load API key and board config from localStorage on mount
+  // Load saved data from localStorage on mount (client-side only)
   useEffect(() => {
     window.scrollTo(0, 0);
-    const savedKey = localStorage.getItem('anthropic-api-key');
-    if (savedKey) {
-      setApiKey(savedKey);
+
+    // Only access localStorage on the client
+    if (typeof window === 'undefined') return;
+
+    try {
+      const savedKey = localStorage.getItem('anthropic-api-key');
+      if (savedKey) {
+        setApiKey(savedKey);
+        console.log('API key loaded from localStorage');
+      }
+    } catch (e) {
+      console.warn('Could not load API key from localStorage:', e);
     }
-    const savedBoard = localStorage.getItem('investment-board-advisors');
-    if (savedBoard) {
-      try {
+
+    try {
+      const savedBoard = localStorage.getItem('investment-board-advisors');
+      if (savedBoard) {
         const parsed = JSON.parse(savedBoard);
         if (Array.isArray(parsed) && parsed.length >= 2) {
           setActiveAdvisorIds(parsed);
         }
-      } catch { /* use defaults */ }
+      }
+    } catch (e) {
+      console.warn('Could not load board config from localStorage:', e);
     }
   }, []);
 
@@ -53,11 +65,25 @@ export default function Home() {
   }, [messages]);
 
   const saveApiKey = () => {
-    if (apiKeyInput.trim()) {
-      localStorage.setItem('anthropic-api-key', apiKeyInput.trim());
-      setApiKey(apiKeyInput.trim());
-      setShowApiKeyModal(false);
-      setError('');
+    if (!apiKeyInput.trim()) return;
+
+    const keyToSave = apiKeyInput.trim();
+
+    try {
+      localStorage.setItem('anthropic-api-key', keyToSave);
+      // Verify it was saved
+      const verified = localStorage.getItem('anthropic-api-key');
+      if (verified === keyToSave) {
+        setApiKey(keyToSave);
+        setShowApiKeyModal(false);
+        setError('');
+        console.log('API key saved successfully');
+      } else {
+        throw new Error('Verification failed');
+      }
+    } catch (e) {
+      console.error('Failed to save API key:', e);
+      setError('Failed to save API key. Your browser may be blocking storage. Try disabling private browsing mode.');
     }
   };
 
