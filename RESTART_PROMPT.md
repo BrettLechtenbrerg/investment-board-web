@@ -1,7 +1,7 @@
 # Advisory Boards - Ultimate Restart Prompt
 
 **Last Updated:** January 29, 2026
-**Session Summary:** Major UI/UX improvements including collapsible instructions, help modal enhancements, API key persistence fixes, and expanded chat windows.
+**Session Summary:** Major UI polish including styled step cards, welcome intros, troubleshooting tips, and expanded chat windows.
 
 ---
 
@@ -65,7 +65,14 @@ You are continuing work on the **Advisory Boards** project — two AI-powered we
 ### Page Layout (top to bottom):
 1. **Header** — App title, Help button (accordion modal), API Key button (pulsing when not set)
 2. **Welcome Section** — Title, app icon image (150px)
-3. **Collapsible Instructions** — Accordion-style 8-step setup guide (collapsed by default)
+3. **Collapsible Instructions** — Polished accordion with:
+   - Welcome intro explaining what the app is
+   - Example question with advisor recommendations
+   - "📋 Quick Setup Guide" header with `~5 min` badge
+   - "Skip to step 4" callout for existing users
+   - 8 styled step cards with numbered circles
+   - Step 4 highlighted (brighter background)
+   - Hover effects on each card
 4. **Advisor Grid** — Clickable emoji buttons for each active advisor
 5. **Instruction Button** — "Talk to an individual advisor..."
 6. **Board Meeting Button** — Yellow themed, calls all active advisors
@@ -149,14 +156,23 @@ npm run build && git add -A && git commit -m "message" && git push
 
 ## Session History
 
-### January 29, 2026 - Session 2 (Latest)
+### January 29, 2026 - Session 3 (Latest)
+- **Polished Step Cards:** Replaced plain numbered list with beautifully styled step cards
+- **Numbered Circles:** Theme-colored circles for each step number
+- **Step 4 Highlighted:** Key API key creation step has brighter background
+- **Hover Effects:** Cards highlight border on hover
+- **Time Estimate Badge:** Added "~5 min" badge to Quick Setup Guide header
+- **Skip to Step 4:** Callout box for users with existing Claude accounts
+- **Welcome Intro in Dropdown:** Added intro section matching Help Modal style
+- **Both apps committed and pushed:**
+  - investment-board-web: `52b4078` - Upgrade setup instructions to polished step cards
+  - business-board-web: `35997ab` - Upgrade setup instructions to polished step cards
+
+### January 29, 2026 - Session 2
 - **Collapsible Instructions:** Converted 8-step setup instructions to accordion with BookOpen icon, collapsed by default
 - **Welcome Intro in Help Modal:** Added themed intro section explaining what the app is with example questions
 - **Troubleshooting Tips:** Added "Key Not Saving?" section with tips for private browsing, blocked storage, clearing data, different devices
 - **API Key Persistence Fix:** Added try-catch error handling, verification that key was saved, user-friendly error messages
-- **Both apps committed and pushed:**
-  - investment-board-web: `d572e7e` - Convert instructions to collapsible accordion
-  - business-board-web: `b4a2b9b` - Convert instructions to collapsible accordion
 
 ### January 29, 2026 - Session 1
 - **Expanded conversation window:** Changed from `calc(100vh - 700px)` with `minHeight: 150px` to `calc(100vh - 400px)` with `minHeight: 500px`
@@ -220,21 +236,19 @@ rm -rf node_modules .next && npm install
 
 ## Key Code Patterns
 
-### Collapsible Instructions (page.tsx)
+### Styled Step Cards (page.tsx)
 ```tsx
-const [showInstructions, setShowInstructions] = useState(false);
+{/* Step Card */}
+<div className="flex gap-3 p-3 rounded-lg bg-white/[0.03] border border-white/10 hover:border-emerald-500/30 transition-colors">
+  <div className="flex items-center justify-center w-7 h-7 rounded-full bg-emerald-500/20 border border-emerald-500/30 text-emerald-400 text-xs font-bold shrink-0">1</div>
+  <p className="text-sm text-white/70 leading-relaxed">Step content here...</p>
+</div>
 
-<button onClick={() => setShowInstructions(!showInstructions)} className="...">
-  <BookOpen className="h-5 w-5" />
-  <span>Setup Instructions</span>
-  <ChevronDown className={`transition-transform ${showInstructions ? 'rotate-180' : ''}`} />
-</button>
-
-{showInstructions && (
-  <div className="...">
-    {/* 8-step instructions */}
-  </div>
-)}
+{/* Highlighted Step */}
+<div className="flex gap-3 p-3 rounded-lg bg-emerald-500/10 border border-emerald-500/30">
+  <div className="flex items-center justify-center w-7 h-7 rounded-full bg-emerald-500/30 border border-emerald-500/40 text-emerald-300 text-xs font-bold shrink-0">4</div>
+  <div className="text-sm text-white/70">Key step content...</div>
+</div>
 ```
 
 ### Safe localStorage (page.tsx)
@@ -256,20 +270,23 @@ const saveApiKey = () => {
 };
 ```
 
-### Troubleshooting Section (HelpModal.tsx)
+### Collapsible Instructions (page.tsx)
 ```tsx
-{
-  subtitle: 'Troubleshooting: Key Not Saving?',
-  isTroubleshooting: true,
-  instructions: [
-    'Private/Incognito Mode: Your key will be deleted when you close...',
-    'Browser Storage Blocked: Some browsers or extensions block localStorage...',
-    'Clearing Browser Data: If you clear cookies/cache...',
-    'Different Device/Browser: Your key is stored per-device...',
-  ],
-}
+const [showInstructions, setShowInstructions] = useState(false);
+
+<button onClick={() => setShowInstructions(!showInstructions)} className="...">
+  <BookOpen className="h-5 w-5" />
+  <span>Setup Instructions</span>
+  <ChevronDown className={`transition-transform ${showInstructions ? 'rotate-180' : ''}`} />
+</button>
+
+{showInstructions && (
+  <div className="...">
+    {/* Welcome intro + step cards */}
+  </div>
+)}
 ```
 
 ---
 
-**Remember:** The web apps are the production focus. Both use client-side API keys (user provides their own Anthropic key). The conversation window is now spacious at 500px minimum height, and instructions are hidden by default to reduce visual clutter!
+**Remember:** The web apps are the production focus. Both use client-side API keys (user provides their own Anthropic key). The setup instructions are now beautifully polished with styled step cards, numbered circles, and a professional appearance!

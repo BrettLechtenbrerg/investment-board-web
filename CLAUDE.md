@@ -40,7 +40,14 @@ src/
 
 ### Web App Features
 1. **Welcome Section** - App icon, title, and collapsible setup instructions
-2. **Collapsible Instructions** - Accordion-style 8-step guide (hidden by default)
+2. **Collapsible Instructions** - Polished accordion with:
+   - Welcome intro explaining what the app is
+   - Example question with advisor recommendations
+   - "Quick Setup Guide" header with ~5 min time estimate
+   - "Skip to step 4" callout for existing users
+   - 8 styled step cards with numbered circles
+   - Step 4 highlighted as the key action step
+   - Hover effects on each card
 3. **Individual Advisors** - Click any advisor to chat one-on-one
 4. **Board Meeting** - All active advisors respond in character with synthesis
 5. **Customize Board** - Toggle advisors on/off from 15 (investment) or 12 (business) options
@@ -148,6 +155,15 @@ advisory-boards/
 ```
 
 ## Recent Updates (January 29, 2026)
+
+### Session 3 - Polished Step Cards & Visual Upgrade
+1. **Polished Step Cards** - Replaced plain numbered list with styled step cards
+2. **Numbered Circles** - Theme-colored circles (emerald/purple) for each step
+3. **Step 4 Highlighted** - Key action step has brighter background
+4. **Hover Effects** - Cards highlight on hover
+5. **Time Estimate Badge** - "~5 min" badge in header
+6. **Skip to Step 4** - Callout box for existing users
+7. **Welcome Intro in Dropdown** - Matching the Help Modal style
 
 ### Session 2 - UI/UX Improvements
 1. **Collapsible Instructions** - Converted 8-step setup instructions to accordion (hidden by default, click to expand)
