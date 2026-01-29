@@ -320,17 +320,68 @@ export default function Home() {
                   </div>
                 </div>
 
-                <p className="text-sm text-white/70 mb-3">If you already have an Anthropic/Claude account you can skip to step 4.</p>
-                <ol className="list-decimal list-inside space-y-2 text-sm text-white/80">
-                  <li>If you do not have an Anthropic / Claude AI account follow the link to set up your FREE account → <a href="https://www.anthropic.com/" target="_blank" rel="noopener noreferrer" className="text-emerald-400 hover:text-emerald-300 underline font-semibold">anthropic.com</a></li>
-                  <li>When you are on the anthropic page simply click the black button in the top right corner that says Try Claude.</li>
-                  <li>Follow the simple instructions and you will have a FREE Claude account up and running in approximately 2 min.</li>
-                  <li>After you set up your Claude/Anthropic account, you will create an anthropic API key so you can talk to your board. Follow the link → <a href="https://platform.claude.com/dashboard" target="_blank" rel="noopener noreferrer" className="text-emerald-400 hover:text-emerald-300 underline font-semibold">platform.claude.com/dashboard</a> to create an API key. This will take about 3 minutes. If you need further help then watch the 1 minute video by clicking <a href="https://www.youtube.com/watch?v=y3Jx8sIwYQs" target="_blank" rel="noopener noreferrer" className="text-emerald-400 hover:text-emerald-300 underline font-semibold">here</a>.</li>
-                  <li>Once you have created and named your API key. Click the pulsing &ldquo;Set API Key&rdquo; in the top right hand corner of this screen - paste your key in the box - and hit save.</li>
-                  <li>Give the system 30 seconds to activate and you can begin asking your board questions.</li>
-                  <li>You can ask individual board member questions or Call a Board Meeting and ask them all at once.</li>
-                  <li>If you want to customize your board then simply click the Customize Your Board button and make changes by following the instructions. Please remember to hit the big green Save Board button or your changes will not take effect.</li>
-                </ol>
+                {/* Setup Steps Header */}
+                <div className="flex items-center gap-2 mb-3">
+                  <h4 className="text-sm font-semibold text-white">📋 Quick Setup Guide</h4>
+                  <span className="text-xs text-white/40 bg-white/5 px-2 py-0.5 rounded-full">~5 min</span>
+                </div>
+                <p className="text-xs text-white/50 mb-3 bg-emerald-500/10 border border-emerald-500/20 rounded-lg px-3 py-2">
+                  💡 <span className="text-emerald-400">Already have an Anthropic/Claude account?</span> Skip to step 4!
+                </p>
+
+                {/* Step Cards */}
+                <div className="space-y-2">
+                  {/* Step 1 */}
+                  <div className="flex gap-3 p-3 rounded-lg bg-white/[0.03] border border-white/10 hover:border-emerald-500/30 transition-colors">
+                    <div className="flex items-center justify-center w-7 h-7 rounded-full bg-emerald-500/20 border border-emerald-500/30 text-emerald-400 text-xs font-bold shrink-0">1</div>
+                    <p className="text-sm text-white/70 leading-relaxed">Create your FREE Anthropic account → <a href="https://www.anthropic.com/" target="_blank" rel="noopener noreferrer" className="text-emerald-400 hover:text-emerald-300 underline font-medium">anthropic.com</a></p>
+                  </div>
+
+                  {/* Step 2 */}
+                  <div className="flex gap-3 p-3 rounded-lg bg-white/[0.03] border border-white/10 hover:border-emerald-500/30 transition-colors">
+                    <div className="flex items-center justify-center w-7 h-7 rounded-full bg-emerald-500/20 border border-emerald-500/30 text-emerald-400 text-xs font-bold shrink-0">2</div>
+                    <p className="text-sm text-white/70 leading-relaxed">Click the &ldquo;Try Claude&rdquo; button in the top right corner of the Anthropic page.</p>
+                  </div>
+
+                  {/* Step 3 */}
+                  <div className="flex gap-3 p-3 rounded-lg bg-white/[0.03] border border-white/10 hover:border-emerald-500/30 transition-colors">
+                    <div className="flex items-center justify-center w-7 h-7 rounded-full bg-emerald-500/20 border border-emerald-500/30 text-emerald-400 text-xs font-bold shrink-0">3</div>
+                    <p className="text-sm text-white/70 leading-relaxed">Follow the simple signup instructions (~2 min).</p>
+                  </div>
+
+                  {/* Step 4 - Highlighted */}
+                  <div className="flex gap-3 p-3 rounded-lg bg-emerald-500/10 border border-emerald-500/30">
+                    <div className="flex items-center justify-center w-7 h-7 rounded-full bg-emerald-500/30 border border-emerald-500/40 text-emerald-300 text-xs font-bold shrink-0">4</div>
+                    <div className="text-sm text-white/70 leading-relaxed">
+                      <span className="text-emerald-400 font-medium">Create your API key</span> → <a href="https://platform.claude.com/dashboard" target="_blank" rel="noopener noreferrer" className="text-emerald-400 hover:text-emerald-300 underline font-medium">platform.claude.com/dashboard</a>
+                      <span className="block text-xs text-white/50 mt-1">Need help? <a href="https://www.youtube.com/watch?v=y3Jx8sIwYQs" target="_blank" rel="noopener noreferrer" className="text-emerald-400 hover:text-emerald-300 underline">Watch the 1-min video tutorial</a></span>
+                    </div>
+                  </div>
+
+                  {/* Step 5 */}
+                  <div className="flex gap-3 p-3 rounded-lg bg-white/[0.03] border border-white/10 hover:border-emerald-500/30 transition-colors">
+                    <div className="flex items-center justify-center w-7 h-7 rounded-full bg-emerald-500/20 border border-emerald-500/30 text-emerald-400 text-xs font-bold shrink-0">5</div>
+                    <p className="text-sm text-white/70 leading-relaxed">Click the pulsing <span className="text-amber-400 font-medium">&ldquo;Set API Key&rdquo;</span> button (top right), paste your key, and hit Save.</p>
+                  </div>
+
+                  {/* Step 6 */}
+                  <div className="flex gap-3 p-3 rounded-lg bg-white/[0.03] border border-white/10 hover:border-emerald-500/30 transition-colors">
+                    <div className="flex items-center justify-center w-7 h-7 rounded-full bg-emerald-500/20 border border-emerald-500/30 text-emerald-400 text-xs font-bold shrink-0">6</div>
+                    <p className="text-sm text-white/70 leading-relaxed">Wait ~30 seconds for activation, then start asking questions!</p>
+                  </div>
+
+                  {/* Step 7 */}
+                  <div className="flex gap-3 p-3 rounded-lg bg-white/[0.03] border border-white/10 hover:border-emerald-500/30 transition-colors">
+                    <div className="flex items-center justify-center w-7 h-7 rounded-full bg-emerald-500/20 border border-emerald-500/30 text-emerald-400 text-xs font-bold shrink-0">7</div>
+                    <p className="text-sm text-white/70 leading-relaxed">Chat with individual advisors or <span className="text-yellow-400 font-medium">Call a Board Meeting</span> for all perspectives at once!</p>
+                  </div>
+
+                  {/* Step 8 */}
+                  <div className="flex gap-3 p-3 rounded-lg bg-white/[0.03] border border-white/10 hover:border-emerald-500/30 transition-colors">
+                    <div className="flex items-center justify-center w-7 h-7 rounded-full bg-emerald-500/20 border border-emerald-500/30 text-emerald-400 text-xs font-bold shrink-0">8</div>
+                    <p className="text-sm text-white/70 leading-relaxed">Want different advisors? Click <span className="text-emerald-400 font-medium">&ldquo;Customize Your Board&rdquo;</span> and don&apos;t forget to Save!</p>
+                  </div>
+                </div>
               </div>
             )}
           </div>
