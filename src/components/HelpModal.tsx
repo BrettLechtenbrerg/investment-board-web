@@ -41,6 +41,16 @@ const steps = [
           'Important: Your API key is stored only in YOUR browser (localStorage). It is never saved on our servers. It\'s sent directly to Anthropic\'s API to generate responses.',
         ],
       },
+      {
+        subtitle: 'Troubleshooting: Key Not Saving?',
+        isTroubleshooting: true,
+        instructions: [
+          'Private/Incognito Mode: Your key will be deleted when you close the browser window. Use a regular browser window instead.',
+          'Browser Storage Blocked: Some browsers or extensions block localStorage. Try disabling ad-blockers or privacy extensions.',
+          'Clearing Browser Data: If you clear cookies/cache, your key will be deleted. You\'ll need to re-enter it.',
+          'Different Device/Browser: Your key is stored per-device. You\'ll need to enter it on each device you use.',
+        ],
+      },
     ],
   },
   {
@@ -204,6 +214,17 @@ export function HelpModal({ isOpen, onClose }: HelpModalProps) {
                             <p className="text-sm text-amber-200/90 leading-relaxed">
                               {section.instructions[0]}
                             </p>
+                          </div>
+                        ) : (section as { isTroubleshooting?: boolean }).isTroubleshooting ? (
+                          <div className="ml-14 p-3 rounded-lg bg-blue-500/10 border border-blue-500/20">
+                            <h4 className="text-sm font-medium text-blue-400 mb-2">{section.subtitle}</h4>
+                            <ul className="space-y-2">
+                              {section.instructions.map((instruction, i) => (
+                                <li key={i} className="text-xs text-blue-200/80 leading-relaxed">
+                                  • {instruction}
+                                </li>
+                              ))}
+                            </ul>
                           </div>
                         ) : (section as { isVideo?: boolean; videoId?: string }).videoId ? (
                           <div className="ml-14 rounded-xl overflow-hidden border border-white/10">
