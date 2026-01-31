@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useRef, useEffect } from 'react';
-import { Send, HelpCircle, Key, X, Loader2, Trash2, Settings2, ChevronDown, BookOpen } from 'lucide-react';
+import { Send, HelpCircle, Key, X, Loader2, Trash2, Settings2, ChevronDown, BookOpen, ArrowLeft } from 'lucide-react';
 import { ALL_ADVISORS, DEFAULT_ADVISOR_IDS, generateBoardMeetingAdvisor, Advisor } from '@/lib/advisors';
 import { HelpModal } from '@/components/HelpModal';
 import { CustomizeModal } from '@/components/CustomizeModal';
@@ -242,6 +242,15 @@ export default function Home() {
       <header className="sticky top-0 z-50 border-b border-white/10 bg-gray-950/80 backdrop-blur-xl">
         <div className="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
           <div className="flex items-center gap-3">
+            <a
+              href="https://masters-edge-portal.vercel.app"
+              className="inline-flex items-center gap-1.5 text-xs text-white/50 hover:text-white transition-colors"
+              title="Back to Portal"
+            >
+              <ArrowLeft className="h-4 w-4" />
+              <span className="hidden sm:inline">Portal</span>
+            </a>
+            <div className="w-px h-6 bg-white/10" />
             <Image src="/icon.png" alt="Investment Board" width={40} height={40} className="rounded-lg" />
             <div>
               <h1 className="text-lg font-bold bg-gradient-to-r from-emerald-400 to-teal-300 bg-clip-text text-transparent">
